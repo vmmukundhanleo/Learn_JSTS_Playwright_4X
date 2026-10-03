@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Login</title>
+</head>
+<body>
+    <main>
+        <h1>Demo Login</h1>
+        <form id="login-form" novalidate>
+            <label for="username">Username</label>
+            <input id="username" name="username" type="email" autocomplete="username">
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" autocomplete="current-password">
+            <button id="Login" type="submit">Log In</button>
+        </form>
+        <p id="error" role="alert" hidden></p>
+        <p id="success" role="status" hidden>Login successful</p>
+    </main>
+    <script>
+        document.querySelector('#login-form').addEventListener('submit', (event) => {
+            event.preventDefault();
+            const username = document.querySelector('#username').value;
+            const password = document.querySelector('#password').value;
+            const error = document.querySelector('#error');
+            const success = document.querySelector('#success');
+
+            success.hidden = true;
+            if (!username || !password) {
+                error.textContent = 'Username and password are required.';
+                error.hidden = false;
+            } else if (username === 'demo.user@example.com' && password === 'demo-password') {
+                error.hidden = true;
+                success.hidden = false;
+            } else {
+                error.textContent = 'Invalid username or password.';
+                error.hidden = false;
+            }
+        });
+    </script>
+</body>
+</html>

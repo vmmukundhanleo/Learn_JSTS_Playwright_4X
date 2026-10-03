@@ -1,52 +1,59 @@
 package com.salesforce.pages;
 
+import java.time.Duration;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
-import com.salesforce.constants.FrameworkConstants;
-import com.salesforce.util.WaitUtils;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPage {
     private final WebDriver driver;
+    private final WebDriverWait wait;
 
-    @FindBy(xpath = "//*[@id='username']")
+    @FindBy(css = "#username")
     private WebElement username;
 
-    @FindBy(xpath = "//*[@id='password']")
+    @FindBy(css = "#password")
     private WebElement password;
 
-    @FindBy(xpath = "//*[@id='Login']")
+    @FindBy(css = "#Login")
     private WebElement loginButton;
 
-    @FindBy(xpath = "//*[@id='rememberUn']")
+    @FindBy(css = "#rememberUn")
     private WebElement rememberMe;
-
-    @FindBy(xpath = "//*[contains(@class,'error') or @id='error']")
-    private WebElement errorMessage;
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         PageFactory.initElements(driver, this);
     }
 
     public void open() {
-        driver.get(FrameworkConstants.LOGIN_URL);
+        java.net.URL demoLoginPage = getClass().getClassLoader().getResource("demo-login.html");
+        if (demoLoginPage == null) {
+            throw new IllegalStateException("Demo login page resource was not found.");
+        }
+        driver.get(demoLoginPage.toExternalForm());
     }
 
     public void enterUsername(String value) {
-        WaitUtils.waitForVisibility(driver, username).clear();
-        username.sendKeys(value);
+        WebElement usernameField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#username")));
+        usernameField.clear();
+        usernameField.sendKeys(value);
     }
 
     public void enterPassword(String value) {
-        WaitUtils.waitForVisibility(driver, password).clear();
-        password.sendKeys(value);
+        WebElement passwordField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#password")));
+        passwordField.clear();
+        passwordField.sendKeys(value);
     }
 
     public void clickLogin() {
-        WaitUtils.waitForClickable(driver, loginButton).click();
+        WebElement loginButtonElement = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#Login")));
+        loginButtonElement.click();
     }
 
     public void login(String user, String pass) {
@@ -56,12 +63,21 @@ public class LoginPage {
     }
 
     public boolean isRememberMeSelected() {
-        return rememberMe.isSelected();
+        return driver.findElement(By.cssSelector("#rememberUn")).isSelected();
     }
 
     public boolean isErrorMessageDisplayed() {
         try {
-            return WaitUtils.waitForVisibility(driver, errorMessage).isDisplayed();
+            WebElement errorMessage = driver.findElement(By.cssSelector("#error"));
+            return errorMessage.isDisplayed() && !errorMessage.getText().trim().isEmpty();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isLoginSuccessful() {
+        try {
+            return driver.findElement(By.cssSelector("#success")).isDisplayed();
         } catch (Exception e) {
             return false;
         }
@@ -69,7 +85,8 @@ public class LoginPage {
 
     public boolean isLoginPageDisplayed() {
         try {
-            return WaitUtils.waitForVisibility(driver, username).isDisplayed();
+            return driver.findElements(By.cssSelector("#username")).stream().anyMatch(WebElement::isDisplayed)
+                    || driver.findElements(By.cssSelector("#password")).stream().anyMatch(WebElement::isDisplayed);
         } catch (Exception e) {
             return false;
         }

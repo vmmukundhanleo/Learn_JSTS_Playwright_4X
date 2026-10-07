@@ -10,12 +10,14 @@ var pp = 34;
 var ab123 = 23;
 // var 45 = 34;
 var _ = 10;
+console.log(_);
 
-var Name = "Vamsi";
-var name = "Manne";
+var Name = "mukundhan";
+var userName = "leo";
+console.log(Name);
+console.log(userName);
+var mukundhan_leo = "hello";
+var mukundhan$leo = "hello";
+var mukundhiu1321 = "hello";
 
-var vamsi_manne = "hello";
-var vamsi$manne = "hello";
-var vamsiu1232 = "hello";
-
-// var pramod dutta = "hello";
+// var mukundhan leo = "hello";

@@ -14,14 +14,14 @@ Examples and notes in [`01_Chapter_JS_Basics`](./01_Chapter_JS_Basics/):
 
 The guide and practice examples introduce JavaScript keywords, identifiers, naming rules, comments, and related fundamentals:
 
-- [Keywords and identifiers guide](./01_Keywords_and_Identifiers.md)
-- [JavaScript engine example](./02_js_engine.js)
-- [Let example](./03_letengine.js)
-- [Keywords and identifiers example](./04_KW_IND.js)
-- [Identifier naming rules](./05_KW_IND_Rules.js)
-- [Additional identifier rules](./06_IND_Rules2.js)
-- [Comments example](./07_Comments.js)
-- [Knowledge check](./08_IQ.js)
+- [Keywords and identifiers guide](./02_Chapter_JS_Keywords_Identifiers/01_Keywords_and_Identifiers.md)
+- [JavaScript engine example](./02_Chapter_JS_Keywords_Identifiers/02_js_engine.js)
+- [Let example](./02_Chapter_JS_Keywords_Identifiers/03_letengine.js)
+- [Keywords and identifiers example](./02_Chapter_JS_Keywords_Identifiers/04_KW_IND.js)
+- [Identifier naming rules](./02_Chapter_JS_Keywords_Identifiers/05_KW_IND_Rules.js)
+- [Additional identifier rules](./02_Chapter_JS_Keywords_Identifiers/06_IND_Rules2.js)
+- [Comments example](./02_Chapter_JS_Keywords_Identifiers/07_Comments.js)
+- [Knowledge check](./02_Chapter_JS_Keywords_Identifiers/08_IQ.js)
 
 ## Running a JavaScript example
 

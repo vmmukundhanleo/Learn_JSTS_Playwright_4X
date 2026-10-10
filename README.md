@@ -27,6 +27,20 @@ A chapter-by-chapter learning repo for testers moving into JavaScript, TypeScrip
   - [07: Naming Conventions](#07-naming-conventions)
   - [08: Comments](#08-comments)
   - [09: Interview Questions on Identifiers](#09-interview-questions-on-identifiers)
+- [Chapter 03: JavaScript Literals & Data Types](#chapter-03-javascript-literals--data-types)
+  - [10 & 14: Literals Concept](#10--14-literals-concept)
+  - [11: Primitive Literals & typeof Operator](#11-primitive-literals--typeof-operator)
+  - [12, 13, 18: null vs undefined](#12-13-18-null-vs-undefined)
+  - [15: Number Literals & Bases](#15-number-literals--bases)
+  - [16: Numeric Separators & BigInt](#16-numeric-separators--bigint)
+  - [17: Special Numbers: Infinity and NaN](#17-special-numbers-infinity-and-nan)
+- [Chapter 04: Operators & Type Coercion](#chapter-04-operators--type-coercion)
+  - [19: JS Architecture & Data Types](#19-js-architecture--data-types)
+  - [20: Assignment Operators & Dynamic Typing](#20-assignment-operators--dynamic-typing)
+  - [21: Arithmetic & Modulus Operators](#21-arithmetic--modulus-operators)
+  - [22: Comparison Operators: Loose vs Strict](#22-comparison-operators-loose-vs-strict)
+  - [23: Logical Operators](#23-logical-operators)
+  - [24: Confusing Comparisons & Type Coercion Traps](#24-confusing-comparisons--type-coercion-traps)
 - [Coming Up](#coming-up)
 
 ---
@@ -36,9 +50,10 @@ A chapter-by-chapter learning repo for testers moving into JavaScript, TypeScrip
 ```mermaid
 flowchart LR
     C0["00 Prompt Engineering<br/>RICE-POT"]:::done --> C1["01 JS Basics<br/>Hello World, Math"]:::done
-    C1 --> C2["02 Keywords and Identifiers<br/>var/let/const, naming, comments"]:::progress
-    C2 --> C3["03 Literals"]:::planned
-    C3 --> TS["TypeScript"]:::planned
+    C1 --> C2["02 Keywords and Identifiers<br/>var/let/const, naming, comments"]:::done
+    C2 --> C3["03 Literals & Data Types<br/>primitives, null vs undefined, BigInt"]:::done
+    C3 --> C4["04 Operators & Comparisons<br/>arithmetic, logical, == vs ==="]:::done
+    C4 --> TS["TypeScript"]:::planned
     TS --> PW["Playwright"]:::planned
 
     classDef done fill:#d1fae5,stroke:#059669,color:#064e3b
@@ -50,12 +65,13 @@ flowchart LR
 
 ## Chapter Summary
 
-| # | Chapter | Folder | Status | What you learn |
-|:--|:--------|:-------|:------:|:---------------|
+| # | Chapter | Folder / Files | Status | What you learn |
+|:--|:--------|:---------------|:------:|:---------------|
 | 00 | Prompt Engineering | [00_Chapter_Prompt_engineering](00_Chapter_Prompt_engineering/) | ✅ Done | RICE-POT prompts, anti-hallucination rules, the Selenium framework a prompt generated |
 | 01 | JavaScript Basics | [01_Chapter_JS_Basics](01_Chapter_JS_Basics/) | ✅ Done | Running a file with Node, `console.log`, arithmetic, DOM basics |
-| 02 | Keywords and Identifiers | [02_Chapter_JS_Keywords_Identifiers](02_Chapter_JS_Keywords_Identifiers/) | 🟡 In progress | How V8 runs code, `var`/`let`/`const`, identifier rules, naming conventions, comments |
-| 03 | Literals | `03_chapter_JS_Literals` | ⏳ Planned | Number, string, boolean, array and object literals |
+| 02 | Keywords and Identifiers | [02_Chapter_JS_Keywords_Identifiers](02_Chapter_JS_Keywords_Identifiers/) | ✅ Done | How V8 runs code, `var`/`let`/`const`, identifier rules, naming conventions, comments |
+| 03 | Literals & Data Types | [03_Chapter_JS_Literals](03_Chapter_JS_Literals/) | ✅ Done | Primitive literals, `typeof`, `null` vs `undefined`, number systems (hex, octal, binary), BigInt, `Infinity`, `NaN` |
+| 04 | Operators & Comparisons | Root (`19`–`24`) | ✅ Done | Assignment, arithmetic, remainder `%`, relational, loose `==` vs strict `===`, logical gates, and coercion traps |
 
 ---
 
@@ -63,6 +79,7 @@ flowchart LR
 
 ```text
 Learn_JSTS_Playwright_4X/
+├── .gitignore
 ├── README.md
 ├── 00_Chapter_Prompt_engineering/
 │   ├── 00_RICE_POT_FullForm.md             # What each RICE-POT letter means
@@ -84,7 +101,22 @@ Learn_JSTS_Playwright_4X/
 │   ├── 06_IND_Rules2.js                    # Naming conventions
 │   ├── 07_Comments.js                      # Single-line, multi-line and JSDoc comments
 │   └── 08_IQ.js                            # Interview drill: valid vs invalid identifiers
-└── 03_Chapter_JS_Literals/                 # (planned)
+├── 03_Chapter_JS_Literals/
+│   ├── 10_Literal.js                       # Basic literal concept
+│   ├── 11_Numberal.js                      # Primitive literals & typeof operator
+│   ├── 12_Null_undefined.js                # Deep dive: null vs undefined differences
+│   ├── 13_Null.js                          # Null quirks and typeof null
+│   ├── 14_Literals.js                      # Hex, octal, scientific notation literals
+│   ├── 15_Number.js                        # Decimal, binary, octal, hex, and float formats
+│   ├── 16_Numbers_PART2.js                 # Numeric separators (1_000_000) & BigInt (n)
+│   ├── 17_special.js                       # Special numeric values: Infinity and NaN
+│   └── 18_undefined.js                     # Unassigned variable demonstration
+├── 19_Arch.js                              # JS architecture & data types breakdown
+├── 20_Assigment_Op.js                      # Assignment operator and dynamic type reassignment
+├── 21_Arithematic_Op.js                    # Arithmetic operators (+, -, *, /, %)
+├── 22_Comparsion_Op.js                     # Comparison operators (==, ===, >, <, >=, <=)
+├── 23_Logical_Op.js                        # Logical operators (&&, ||, !)
+└── 24_Confusing_Comparsion.js              # Type coercion edge cases and equality pitfalls
 ```
 
 ---
@@ -501,7 +533,318 @@ let A = "Unicode escape for A";  // this variable is named A
 
 ---
 
+## Chapter 03: JavaScript Literals & Data Types
+
+### 10 & 14: Literals Concept
+
+**Concept:** A literal is a fixed value written directly into the source code rather than computed dynamically or stored in a variable. In `let a = 10;`, `10` is a number literal.
+
+**Why:** In test scripts, test data (endpoints, payloads, credentials, selectors) often begins as hardcoded literals before being parameterized.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: Whenever initializing static values: strings `"text"`, numbers `42`, booleans `true`, hex colors `0xFF0000`, or scientific figures `1e6`.
+- **Q: What does it replace?** A: Dynamic constructors like `new Number(10)` or `new String("hello")`. Literal notation is cleaner, faster, and avoids wrapper object pitfalls.
+- **Q: What's the gotcha?** A: Numbers written with leading `0x` are hexadecimal, `0b` are binary, and `0o` are octal.
+
+```js
+// 03_Chapter_JS_Literals/10_Literal.js
+let a = 10; // 10 is an integer numeric literal
+```
+
+```js
+// 03_Chapter_JS_Literals/14_Literals.js (excerpt)
+let count = 42;
+let negative = -100;
+let zero = 0;
+let h = 0xFF;        // Hexadecimal (255)
+let octal = 0o77;    // Octal (63)
+let million = 1e6;   // Scientific notation: 1 * 10^6 = 1,000,000
+let tiny = 1.5e-4;   // 0.00015
+```
+
+---
+
+### 11: Primitive Literals & typeof Operator
+
+**Concept:** JavaScript has primitive types: `string`, `number`, `boolean`, `null`, and `undefined`. The unary `typeof` operator inspects the data type of any variable or expression at runtime.
+
+**Why:** In automation assertions, verifying an API response field has the expected type (`typeof res.id === "number"`) validates schemas before checking values.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: Runtime type validation and schema assertions in tests.
+- **Q: What does it replace?** A: Hardcoded type assumptions that fail silently with unexpected types.
+- **Q: What's the gotcha?** A: `typeof null` returns `"object"`. This is an infamous historical bug from JS 1.0 (1995) preserved for backwards compatibility!
+
+```mermaid
+flowchart TD
+    V["typeof operand"] --> S["'string' for 'hello'"]
+    V --> N["'number' for 42, 3.14, NaN, Infinity"]
+    V --> B["'boolean' for true, false"]
+    V --> U["'undefined' for unassigned variables"]
+    V --> O["'object' for null (JS bug!) and objects"]
+```
+
+```js
+// 03_Chapter_JS_Literals/11_Numberal.js
+let age = "mukundhan";        // String literal
+let age2 = 'mukundhanleo';
+let isStudent = true;         // Boolean literal
+let pi = 3.14;                // Number literal (float)
+let nullValue = null;         // Null literal
+let undefinedValue;           // Undefined
+
+console.log(typeof age);            // string
+console.log(typeof pi);             // number
+console.log(typeof isStudent);      // boolean
+console.log(typeof nullValue);       // object (quirk!)
+console.log(typeof undefinedValue); // undefined
+```
+
+---
+
+### 12, 13, 18: null vs undefined
+
+**Concept:** 
+- `undefined`: A variable has been declared, but no value has been assigned yet. Set automatically by JavaScript.
+- `null`: An intentional absence of any value. Explicitly assigned by the developer to represent "empty" or "no object".
+
+**Why:** Distinguishing whether a test input was *never provided* (`undefined`) or *explicitly cleared/empty* (`null`) is a frequent QA boundary condition.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: Assign `null` when you want to clear a reference or represent an empty value in an API request payload.
+- **Q: What does it replace?** A: Leaving variables unassigned or using sentinel strings like `"none"` or `""`.
+- **Q: What's the gotcha?** A: Loose equality `null == undefined` is `true`, but strict equality `null === undefined` is `false`.
+
+| Feature | `undefined` | `null` |
+|:--------|:------------|:-------|
+| Meaning | Not assigned yet | Intentionally empty |
+| Set by | JavaScript runtime automatically | Developer manually |
+| `typeof` | `"undefined"` | `"object"` (historical quirk) |
+| `==` check | `null == undefined` $\rightarrow$ `true` | `null == undefined` $\rightarrow$ `true` |
+| `===` check | `null === undefined` $\rightarrow$ `false` | `null === undefined` $\rightarrow$ `false` |
+
+```js
+// 03_Chapter_JS_Literals/12_Null_undefined.js (excerpt)
+let userName;
+console.log(userName);        // undefined
+console.log(typeof userName); // undefined
+
+let profilePicture = null;
+console.log(profilePicture);        // null
+console.log(typeof profilePicture); // object
+
+console.log(null == undefined);  // true
+console.log(null === undefined); // false
+```
+
+---
+
+### 15: Number Literals & Bases
+
+**Concept:** In JavaScript, all numbers are 64-bit double-precision floating-point values (IEEE 754). There is no distinct `int` or `float` primitive type.
+
+**Why:** Tests frequently interact with binary masks, memory offsets, status hex codes (`0xFF`), and decimal amounts.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: Binary (`0b`), Octal (`0o`), and Hexadecimal (`0x`) literals make bitwise operations, byte calculations, and color representations explicit.
+- **Q: What does it replace?** A: Calling `parseInt("1010", 2)` manually.
+- **Q: What's the gotcha?** A: Floating-point precision issues exist in all IEEE 754 languages (`0.1 + 0.2 !== 0.3`).
+
+```js
+// 03_Chapter_JS_Literals/15_Number.js (excerpt)
+let decimal = 42;      // Decimal (Base 10)
+let binary = 0b1010;   // Binary (Base 2) -> 10
+let octal = 0o52;      // Octal (Base 8)  -> 42
+let hex = 0x2A;        // Hex (Base 16)   -> 42
+
+let float1 = 3.14;
+let exp1 = 1.5e3;      // 1.5 * 10^3 = 1500
+let exp2 = 1.5e-3;     // 0.0015
+```
+
+---
+
+### 16: Numeric Separators & BigInt
+
+**Concept:** 
+- **Numeric Separators (`_`)**: Introduced in ES2021, underscores can be placed between digits to improve number readability without changing the numeric value.
+- **BigInt**: Introduced in ES2020, allows representation of arbitrarily large integers beyond `Number.MAX_SAFE_INTEGER` ($9,007,199,254,740,991$). Created by appending `n` to an integer literal or calling `BigInt()`.
+
+**Why:** Automation suites dealing with financial transactions, database 64-bit IDs, or long epoch timestamps require `BigInt` to prevent rounding errors.
+
+```js
+// 03_Chapter_JS_Literals/16_Numbers_PART2.js
+let million = 1_000_000;
+let binarySep = 0b1010_0001;
+let hexSep = 0xFF_FF;
+
+let big = 123456789012345678901234567890n;
+let big2 = BigInt("123456789012345678901234567890");
+
+console.log(typeof big); // "bigint"
+```
+
+---
+
+### 17: Special Numbers: Infinity and NaN
+
+**Concept:**
+- `Infinity` and `-Infinity`: Special numeric values produced when exceeding the maximum float range or dividing a non-zero number by zero (`1 / 0`).
+- `NaN` ("Not a Number"): Produced when a mathematical operation cannot return a valid real number (`0 / 0` or `"hello" * 2`).
+
+**Why:** Tests must guard against unexpected calculation failures returning `NaN` in cart totals or latency metrics.
+
+**Q&A: why use this?**
+- **Q: What's the gotcha?** A: `typeof NaN === "number"` and `NaN === NaN` is `false`! Always check using `Number.isNaN(val)`.
+
+```js
+// 03_Chapter_JS_Literals/17_special.js
+console.log(1 / 0);               // Infinity
+console.log(-1 / 0);              // -Infinity
+console.log(typeof Infinity);      // "number"
+
+console.log(0 / 0);               // NaN
+console.log("hello" * 2);         // NaN
+console.log(typeof NaN);          // "number"
+```
+
+---
+
+## Chapter 04: Operators & Type Coercion
+
+### 19: JS Architecture & Data Types
+
+**Concept:** An expression like `let a = 10 + 3;` involves an operator (`+`) executing on operands (`10`, `3`) and an assignment operator (`=`). JavaScript classifies data types into primitives (passed by value) and reference types (passed by reference).
+
+```js
+// 19_Arch.js
+let a = 10 + 3;
+// Primitives: string, number, boolean, bigint, undefined, null, Symbol
+// Special / Objects: Array, Object, NaN, Infinity
+```
+
+---
+
+### 20: Assignment Operators & Dynamic Typing
+
+**Concept:** The `=` operator assigns the right-hand value to the variable on the left. JavaScript is dynamically typed: variables declared with `let` can be reassigned to completely different types at runtime.
+
+```js
+// 20_Assigment_Op.js
+let x = 10;
+x = "PrrammodDutta"; // Dynamic typing: number -> string
+console.log(x);      // "PrrammodDutta"
+
+let x1 = 10;
+x1 = x1 + 5;         // Update value
+console.log(x1);     // 15
+```
+
+---
+
+### 21: Arithmetic & Modulus Operators
+
+**Concept:** Standard arithmetic operations (`+`, `-`, `*`, `/`) along with the modulus operator (`%`), which returns the remainder of a division.
+
+**Why:** In test automation, `%` is indispensable for:
+1. Even/odd assertions: `index % 2 === 0`
+2. Pagination and batching: checking row boundaries
+3. Round-robin load test dispatching across workers
+
+```js
+// 21_Arithematic_Op.js
+let a = 10, b = 3;
+console.log(a + b); // 13 (sum)
+console.log(a - b); // 7  (subtraction)
+console.log(a * b); // 30 (multiplication)
+console.log(a / b); // 3.3333333333333335 (division)
+
+console.log(a % b);   // 1  (10 % 3 = remainder 1)
+console.log(13 % 7);  // 6
+console.log(101 % 2); // 1  (odd number test)
+```
+
+---
+
+### 22: Comparison Operators: Loose vs Strict
+
+**Concept:** Comparison operators compare two operands and always evaluate to a boolean (`true` or `false`).
+- Relational: `>`, `<`, `>=`, `<=`
+- Loose Equality (`==`): compares values after performing implicit type coercion.
+- Strict Equality (`===`): compares both data type AND value without type coercion.
+
+**Rule of Thumb for QA:** **Always use strict equality (`===`)**. Loose equality hides type mismatches and causes subtle test false-positives.
+
+```mermaid
+flowchart TD
+    CMP{"5 == '5' vs 5 === '5'"}
+    CMP -->|"5 == '5'"| L["Loose (==): coerces '5' to 5 -> true"]
+    CMP -->|"5 === '5'"| S["Strict (===): types differ (number vs string) -> false"]
+```
+
+```js
+// 22_Comparsion_Op.js
+console.log(3 > 4);   // false
+console.log(4 >= 4);  // true
+
+console.log(5 == "5");  // true  (loose: coerces string to number)
+console.log(5 === "5"); // false (strict: number !== string)
+```
+
+---
+
+### 23: Logical Operators
+
+**Concept:** Logical operators combine or invert boolean expressions:
+- `&&` (Logical AND): returns `true` only if both operands are truthy.
+- `||` (Logical OR): returns `true` if at least one operand is truthy.
+- `!` (Logical NOT): inverts the truthiness of an operand.
+
+**Why:** Used in Playwright assertions and test guards to verify multi-step assertions (e.g., `isLoggedIn && hasAuthToken`).
+
+```js
+// 23_Logical_Op.js
+let a = true;
+let b = false;
+
+console.log(a && b); // false
+console.log(a || b); // true
+console.log(!a);     // false
+```
+
+---
+
+### 24: Confusing Comparisons & Type Coercion Traps
+
+**Concept:** JavaScript's loose equality (`==`) applies complex type coercion algorithms that can break mathematical transitivity.
+
+**The Classic Trap:**
+- `"" == 0` evaluates to `true` (empty string coerced to 0)
+- `"0" == 0` evaluates to `true` (string "0" coerced to 0)
+- **Yet** `"" == "0"` evaluates to `false` (both are strings, so compared as text!)
+
+**Solution:** Using `===` eliminates all coercion traps.
+
+```js
+// 24_Confusing_Comparsion.js
+// Loose equality traps (coercion occurs):
+console.log("" == 0);   // true
+console.log("0" == 0);  // true
+console.log("" == "0"); // false
+
+// Strict equality fixes it (no coercion):
+console.log("" === 0);   // false
+console.log("0" === 0);  // false
+console.log("" === "0"); // false
+```
+
+---
+
 ## Coming Up
 
-- **Chapter 03: Literals**: number, string, boolean, array, and object literals in depth.
-- Then TypeScript, then Playwright.
+- **Control Flow**: `if`/`else`, `switch`, `for`, `while`, and `for...of` loops
+- **Functions & Scope**: Arrow functions, closures, callbacks, and `this`
+- **Objects & Arrays**: Destructuring, spread/rest operators, map/filter/reduce
+- **TypeScript**: Static typing, interfaces, generics, and strict configurations
+- **Playwright Automation**: Locators, actions, auto-waiting, Page Object Model (POM), and CI/CD pipelines
+

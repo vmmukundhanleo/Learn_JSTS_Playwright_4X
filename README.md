@@ -71,7 +71,7 @@ flowchart LR
 | 01 | JavaScript Basics | [01_Chapter_JS_Basics](01_Chapter_JS_Basics/) | ✅ Done | Running a file with Node, `console.log`, arithmetic, DOM basics |
 | 02 | Keywords and Identifiers | [02_Chapter_JS_Keywords_Identifiers](02_Chapter_JS_Keywords_Identifiers/) | ✅ Done | How V8 runs code, `var`/`let`/`const`, identifier rules, naming conventions, comments |
 | 03 | Literals & Data Types | [03_Chapter_JS_Literals](03_Chapter_JS_Literals/) | ✅ Done | Primitive literals, `typeof`, `null` vs `undefined`, number systems (hex, octal, binary), BigInt, `Infinity`, `NaN` |
-| 04 | Operators & Comparisons | Root (`19`–`24`) | ✅ Done | Assignment, arithmetic, remainder `%`, relational, loose `==` vs strict `===`, logical gates, and coercion traps |
+| 04 | Operators & Comparisons | [04_JS_Operators](04_JS_Operators/) | ✅ Done | Assignment, arithmetic, remainder `%`, relational, loose `==` vs strict `===`, logical gates, and coercion traps |
 
 ---
 
@@ -111,12 +111,13 @@ Learn_JSTS_Playwright_4X/
 │   ├── 16_Numbers_PART2.js                 # Numeric separators (1_000_000) & BigInt (n)
 │   ├── 17_special.js                       # Special numeric values: Infinity and NaN
 │   └── 18_undefined.js                     # Unassigned variable demonstration
-├── 19_Arch.js                              # JS architecture & data types breakdown
-├── 20_Assigment_Op.js                      # Assignment operator and dynamic type reassignment
-├── 21_Arithematic_Op.js                    # Arithmetic operators (+, -, *, /, %)
-├── 22_Comparsion_Op.js                     # Comparison operators (==, ===, >, <, >=, <=)
-├── 23_Logical_Op.js                        # Logical operators (&&, ||, !)
-└── 24_Confusing_Comparsion.js              # Type coercion edge cases and equality pitfalls
+├── 04_JS_Operators/
+│   ├── 19_Arch.js                          # JS architecture & data types breakdown
+│   ├── 20_Assigment_Op.js                  # Assignment operator and dynamic type reassignment
+│   ├── 21_Arithematic_Op.js                # Arithmetic operators (+, -, *, /, %)
+│   ├── 22_Comparsion_Op.js                 # Comparison operators (==, ===, >, <, >=, <=)
+│   ├── 23_Logical_Op.js                    # Logical operators (&&, ||, !)
+│   └── 24_Confusing_Comparsion.js          # Type coercion edge cases and equality pitfalls
 ```
 
 ---
@@ -717,7 +718,7 @@ console.log(typeof NaN);          // "number"
 **Concept:** An expression like `let a = 10 + 3;` involves an operator (`+`) executing on operands (`10`, `3`) and an assignment operator (`=`). JavaScript classifies data types into primitives (passed by value) and reference types (passed by reference).
 
 ```js
-// 19_Arch.js
+// 04_JS_Operators/19_Arch.js
 let a = 10 + 3;
 // Primitives: string, number, boolean, bigint, undefined, null, Symbol
 // Special / Objects: Array, Object, NaN, Infinity
@@ -730,7 +731,7 @@ let a = 10 + 3;
 **Concept:** The `=` operator assigns the right-hand value to the variable on the left. JavaScript is dynamically typed: variables declared with `let` can be reassigned to completely different types at runtime.
 
 ```js
-// 20_Assigment_Op.js
+// 04_JS_Operators/20_Assigment_Op.js
 let x = 10;
 x = "PrrammodDutta"; // Dynamic typing: number -> string
 console.log(x);      // "PrrammodDutta"
@@ -752,7 +753,7 @@ console.log(x1);     // 15
 3. Round-robin load test dispatching across workers
 
 ```js
-// 21_Arithematic_Op.js
+// 04_JS_Operators/21_Arithematic_Op.js
 let a = 10, b = 3;
 console.log(a + b); // 13 (sum)
 console.log(a - b); // 7  (subtraction)
@@ -783,7 +784,7 @@ flowchart TD
 ```
 
 ```js
-// 22_Comparsion_Op.js
+// 04_JS_Operators/22_Comparsion_Op.js
 console.log(3 > 4);   // false
 console.log(4 >= 4);  // true
 
@@ -803,7 +804,7 @@ console.log(5 === "5"); // false (strict: number !== string)
 **Why:** Used in Playwright assertions and test guards to verify multi-step assertions (e.g., `isLoggedIn && hasAuthToken`).
 
 ```js
-// 23_Logical_Op.js
+// 04_JS_Operators/23_Logical_Op.js
 let a = true;
 let b = false;
 
@@ -826,7 +827,7 @@ console.log(!a);     // false
 **Solution:** Using `===` eliminates all coercion traps.
 
 ```js
-// 24_Confusing_Comparsion.js
+// 04_JS_Operators/24_Confusing_Comparsion.js
 // Loose equality traps (coercion occurs):
 console.log("" == 0);   // true
 console.log("0" == 0);  // true

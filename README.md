@@ -41,6 +41,17 @@ A chapter-by-chapter learning repo for testers moving into JavaScript, TypeScrip
   - [22: Comparison Operators: Loose vs Strict](#22-comparison-operators-loose-vs-strict)
   - [23: Logical Operators](#23-logical-operators)
   - [24: Confusing Comparisons & Type Coercion Traps](#24-confusing-comparisons--type-coercion-traps)
+  - [26: Strict vs Loose Inequality (!= vs !==)](#26-strict-vs-loose-inequality--vs-)
+  - [27: String Concatenation & Multi-Argument Logging](#27-string-concatenation--multi-argument-logging)
+  - [28 & 29: Ternary Operator & QA Assertions](#28--29-ternary-operator--qa-assertions)
+  - [30 - 33: Practical QA Ternaries & Template Literals](#30---33-practical-qa-ternaries--template-literals)
+  - [34 - 36: Nested Ternaries & Multi-Condition Chaining](#34---36-nested-ternaries--multi-condition-chaining)
+  - [37: Type Inspection with typeof Operator](#37-type-inspection-with-typeof-operator)
+- [Chapter 05: Increment, Decrement & Nullish Operators](#chapter-05-increment-decrement--nullish-operators)
+  - [38 & 39: Pre-Increment vs Post-Increment (++a vs a++)](#38--39-pre-increment-vs-post-increment-a-vs-a)
+  - [40 - 42: Increment Evaluation Order & Interview Drills](#40---42-increment-evaluation-order--interview-drills)
+  - [43 & 44: Pre-Decrement vs Post-Decrement (--a vs a--)](#43--44-pre-decrement-vs-post-decrement-a-vs-a)
+  - [45: Nullish Coalescing Operator (??)](#45-nullish-coalescing-operator-)
 - [Coming Up](#coming-up)
 
 ---
@@ -53,7 +64,8 @@ flowchart LR
     C1 --> C2["02 Keywords and Identifiers<br/>var/let/const, naming, comments"]:::done
     C2 --> C3["03 Literals & Data Types<br/>primitives, null vs undefined, BigInt"]:::done
     C3 --> C4["04 Operators & Comparisons<br/>arithmetic, logical, == vs ==="]:::done
-    C4 --> TS["TypeScript"]:::planned
+    C4 --> C5["05 Incr/Decr & Nullish<br/>pre/post ++/--, ?? operator"]:::done
+    C5 --> TS["TypeScript"]:::planned
     TS --> PW["Playwright"]:::planned
 
     classDef done fill:#d1fae5,stroke:#059669,color:#064e3b
@@ -71,7 +83,8 @@ flowchart LR
 | 01 | JavaScript Basics | [01_Chapter_JS_Basics](01_Chapter_JS_Basics/) | ✅ Done | Running a file with Node, `console.log`, arithmetic, DOM basics |
 | 02 | Keywords and Identifiers | [02_Chapter_JS_Keywords_Identifiers](02_Chapter_JS_Keywords_Identifiers/) | ✅ Done | How V8 runs code, `var`/`let`/`const`, identifier rules, naming conventions, comments |
 | 03 | Literals & Data Types | [03_Chapter_JS_Literals](03_Chapter_JS_Literals/) | ✅ Done | Primitive literals, `typeof`, `null` vs `undefined`, number systems (hex, octal, binary), BigInt, `Infinity`, `NaN` |
-| 04 | Operators & Comparisons | [04_JS_Operators](04_JS_Operators/) | ✅ Done | Assignment, arithmetic, remainder `%`, relational, loose `==` vs strict `===`, logical gates, and coercion traps |
+| 04 | Operators & Comparisons | [04_JS_Operators](04_JS_Operators/) | ✅ Done | Assignment, arithmetic, remainder `%`, relational, loose `==` vs strict `===`, logical gates, ternary operators in QA, and coercion traps |
+| 05 | Increment, Decrement & Nullish | [05_chapter_JS_Incre_Decr_Op](05_chapter_JS_Incre_Decr_Op/) | ✅ Done | Pre/Post increment (`++a`, `a++`), Pre/Post decrement (`--a`, `a--`), evaluation order drills, and Nullish Coalescing (`??`) |
 
 ---
 
@@ -117,7 +130,29 @@ Learn_JSTS_Playwright_4X/
 │   ├── 21_Arithematic_Op.js                # Arithmetic operators (+, -, *, /, %)
 │   ├── 22_Comparsion_Op.js                 # Comparison operators (==, ===, >, <, >=, <=)
 │   ├── 23_Logical_Op.js                    # Logical operators (&&, ||, !)
-│   └── 24_Confusing_Comparsion.js          # Type coercion edge cases and equality pitfalls
+│   ├── 24_Confusing_Comparsion.js          # Type coercion edge cases and equality pitfalls
+│   ├── 25_CC.js                            # Comparison / Coercion notes
+│   ├── 26_Question.js                      # Loose != vs strict !== inequality
+│   ├── 27_String.js                        # String concatenation (+, +=) and multi-argument logging
+│   ├── 28_Ternary_Op.js                    # Ternary operator syntax (condition ? yes : no)
+│   ├── 29_T_Op.js                          # QA validation: HTTP status assertion (PASS / FAIL)
+│   ├── 30_IQ.js                            # QA pattern: Dynamic environment base URL configuration
+│   ├── 31_IQ.js                            # QA pattern: CI pipeline headless vs headed browser mode
+│   ├── 32_IQ.js                            # QA pattern: Response time SLA check & template literals
+│   ├── 33_IQ.js                            # Boolean ternary and string template interpolation
+│   ├── 34_Nested_Ternary.js                # Nested ternary conditions
+│   ├── 35_IQ.js                            # Multi-level ternary chaining: HTTP response categorization
+│   ├── 36_IQ.js                            # Chained ternary ladder: Temperature / threshold ratings
+│   └── 37_TypeOf.js                        # Type inspection with typeof operator
+├── 05_chapter_JS_Incre_Decr_Op/
+│   ├── 38_ID_Op.js                         # Pre-increment (++a): increment first, then return
+│   ├── 39_ID.js                            # Post-increment (a++): return first, then increment
+│   ├── 40_IQ.js                            # Interview drill: Evaluation order with ++a + a
+│   ├── 41_IQ.js                            # Interview drill: Expression evaluation (++a + a + a++)
+│   ├── 42_IQ.js                            # Interview drill: Sequential evaluation (i++ + ++i)
+│   ├── 43_De.js                            # Pre-decrement (--a): decrement first, then return
+│   ├── 44.js                               # Post-decrement (a--): return first, then decrement
+│   └── 45_Nullish.js                       # Nullish coalescing (??) vs default fallback values
 ```
 
 ---
@@ -837,6 +872,361 @@ console.log("" == "0"); // false
 console.log("" === 0);   // false
 console.log("0" === 0);  // false
 console.log("" === "0"); // false
+```
+
+---
+
+### 26: Strict vs Loose Inequality (!= vs !==)
+
+**Concept:** 
+- Loose inequality (`!=`) compares two operands after performing type coercion.
+- Strict inequality (`!==`) compares both data type and value without type conversion.
+
+**Why:** Just as loose equality `==` can cause test false-positives, loose inequality `!=` can fail to catch subtle type discrepancies in assertions.
+
+**Q&A: why use this?**
+- **Q: Why does `5 != "5"` return `false`?** A: Because `"5"` is coerced to the number `5`, making them loosely equal. Thus, the inequality test evaluates to `false`.
+- **Q: Why does `5 !== "5"` return `true`?** A: Because their types differ (`number` vs `string`), so they are strictly not equal.
+- **Q: What's the gotcha?** A: Notice there is no `!===` operator in JavaScript (syntax error). The strict inequality operator has exactly two equals signs: `!==`.
+
+```js
+// 04_JS_Operators/26_Question.js
+console.log(5 != "5");   // false (coerced: number 5 != number 5 -> false)
+console.log(5 !== "5");  // true  (strict: number !== string -> true)
+// console.log(5 !=== "5"); // SyntaxError: Unexpected token '='
+```
+
+---
+
+### 27: String Concatenation & Multi-Argument Logging
+
+**Concept:** 
+- The `+` and `+=` operators concatenate strings together.
+- `console.log()` supports multiple comma-separated arguments, printing each with an automatic space separator while preserving native data types.
+
+**Why:** Building selectors, creating log statements, and appending dynamic query parameters are fundamental daily automation tasks.
+
+**Q&A: why use this?**
+- **Q: What is the difference between `console.log("A" + "B")` and `console.log("A", "B")`?** A: `+` creates a single new string without spaces (`"AB"`). Comma separation passes multiple arguments to the logger, which formats them separated by a space (`"A B"`) and preserves object inspectability in browsers.
+- **Q: What happens when appending to a string?** A: `s += "Dev"` reassigns `s` to the newly concatenated string.
+
+```js
+// 04_JS_Operators/27_String.js
+let s = "Hi, ";
+console.log(typeof s); // string
+s += "Dev";
+console.log(s);        // Hi, Dev
+
+console.log("HELLO", "Prrammod"); // HELLO Prrammod (space added)
+console.log("Hello" + "World");   // HelloWorld (no space)
+
+// Logging multiple mixed data types in a single line:
+console.log(1, 2, 3, 4, "Hello", true); // 1 2 3 4 Hello true
+```
+
+---
+
+### 28 & 29: Ternary Operator & QA Assertions
+
+**Concept:** The ternary operator (`condition ? exprIfTrue : exprIfFalse`) is JavaScript's only operator that takes three operands. It serves as a concise, inline replacement for `if...else` statements when assigning a value or producing an output.
+
+**Why:** Tests frequently evaluate assertion results, map boolean checks to human-readable strings, or set test statuses in test reports.
+
+**Q&A: why use this?**
+- **Q: When do I reach for it?** A: When assigning a variable based on a single condition (e.g., pass/fail status, test tags, headers).
+- **Q: What does it replace?** A: Multi-line `if / else` blocks that require `let` reassignment.
+
+```mermaid
+flowchart TD
+    C{"actualStatusCode === expectedStatusCode"} -->|true| P["'✅ PASS'"]
+    C -->|false| F["'❌ FAIL'"]
+    P --> R[testResult]
+    F --> R
+```
+
+```js
+// 04_JS_Operators/28_Ternary_Op.js
+let age = 17;
+let can_I_go = age > 18 ? "Yes" : "No";
+console.log(can_I_go); // No
+```
+
+```js
+// 04_JS_Operators/29_T_Op.js
+let actualStatusCode = 200;
+let expectedStatusCode = 200;
+let testResult = actualStatusCode === expectedStatusCode ? "✅ PASS" : "❌ FAIL";
+console.log(testResult); // ✅ PASS
+```
+
+---
+
+### 30 - 33: Practical QA Ternaries & Template Literals
+
+**Concept:** Real-world test automation scenarios where ternary operators provide concise, declarative configurations:
+1. **Dynamic Environment Endpoints (`30_IQ.js`)**: Switching between production and staging base URLs.
+2. **CI Pipeline Browser Configuration (`31_IQ.js`)**: Running headless in CI environments and headed locally during debugging.
+3. **Performance SLA Thresholds & Template Literals (`32_IQ.js`)**: Evaluating API response times against SLA targets and interpolating variables using ES6 backticks (`` `... ${variable} ...` ``).
+4. **Flag Evaluation & Normalization (`33_IQ.js`)**: Evaluating truthy/falsy flags and cleanly printing values with template strings.
+
+```js
+// 04_JS_Operators/30_IQ.js
+let environment = "staging";
+let baseUrl = environment === "prod"
+    ? "https://api.example.com"
+    : "https://staging-api.example.com";
+console.log(baseUrl); // https://staging-api.example.com
+```
+
+```js
+// 04_JS_Operators/31_IQ.js
+let isCI = true;
+let browserMode = isCI ? "headless" : "headed";
+console.log("Launching browser in:", browserMode, "mode"); // Launching browser in: headless mode
+```
+
+```js
+// 04_JS_Operators/32_IQ.js
+let responseTime = 850;  // ms
+let sla = 1000;          // ms
+let slaStatus = responseTime <= sla ? "Within SLA ✅" : "SLA breached ❌";
+console.log(`Response: ${responseTime}ms — ${slaStatus}`); // Response: 850ms — Within SLA ✅
+console.log(`What is the SLA time ? - ${sla}`);            // What is the SLA time ? - 1000
+```
+
+```js
+// 04_JS_Operators/33_IQ.js
+let condition = true;
+let isSKMale = condition ? true : false;
+console.log(isSKMale);             // true
+console.log(`Value is , ${isSKMale}`); // Value is , true
+```
+
+---
+
+### 34 - 36: Nested Ternaries & Multi-Condition Chaining
+
+**Concept:** Ternary operators can be nested or chained sequentially to evaluate multiple conditions, similar to an `if...else if...else` ladder.
+
+**Structure:**
+```text
+condition1 ? value1 :
+condition2 ? value2 :
+condition3 ? value3 : fallbackValue
+```
+
+**Use Cases:**
+- **Decision Trees (`34_Nested_Ternary.js`)**: Multi-condition permission evaluation.
+- **HTTP Status Code Categorization (`35_IQ.js`)**: Categorizing HTTP responses into `Success` (2xx), `Redirect` (3xx), `Client Error` (4xx), or `Server Error` (5xx).
+- **Performance / SLA Tiers (`36_IQ.js`)**: Grading metrics across multiple numeric thresholds (e.g., latency grades or temperature scales).
+
+**Gotcha:** Keep chained ternaries indented and aligned for readability. If logic grows past 3-4 branches, refactor to `switch` or `if...else` to preserve maintainability.
+
+```js
+// 04_JS_Operators/34_Nested_Ternary.js
+let age = 26;
+let is_pramod_enjoy = (age > 18) ? (age > 25 ? "Goa & Drink" : "No Drink,ONly Goa") : "No Goa";
+console.log(`Pramod can Enjoy ${is_pramod_enjoy}`); // Pramod can Enjoy Goa & Drink
+```
+
+```js
+// 04_JS_Operators/35_IQ.js
+let statusCode = 404;
+let category =
+    statusCode < 300 ? "Success" :
+    statusCode < 400 ? "Redirect" :
+    statusCode < 500 ? "Client Error" : "Server Error";
+
+console.log(`Status ${statusCode}: ${category}`); // Status 404: Client Error
+```
+
+```js
+// 04_JS_Operators/36_IQ.js
+let temp = 35;
+let feel = (temp >= 40) ? "Very Hot" :
+    (temp >= 30) ? "Hot" :
+    (temp >= 20) ? "Warm" :
+    (temp >= 10) ? "Cool" : "Cold";
+
+console.log("7. Temperature:", temp, "| Feel:", feel); // 7. Temperature: 35 | Feel: Hot
+```
+
+---
+
+### 37: Type Inspection with typeof Operator
+
+**Concept:** The unary `typeof` operator inspects the data type of an operand at runtime. Both whole integers and floating-point values evaluate to `"number"`.
+
+```js
+// 04_JS_Operators/37_TypeOf.js
+console.log(typeof "hello"); // string
+console.log(typeof 123);     // number
+console.log(typeof 31.4);    // number
+```
+
+| Operand | `typeof` Result | Notes |
+|:--------|:----------------|:------|
+| `"hello"` | `"string"` | Text values |
+| `123`, `31.4` | `"number"` | All numbers are 64-bit IEEE 754 floats |
+| `true`, `false` | `"boolean"` | Logical flags |
+| `undefined` | `"undefined"` | Unassigned variables |
+| `null` | `"object"` | Historical JavaScript quirk from 1995 |
+
+---
+
+## Chapter 05: Increment, Decrement & Nullish Operators
+
+### 38 & 39: Pre-Increment vs Post-Increment (++a vs a++)
+
+**Concept:** Both `++a` (pre-increment) and `a++` (post-increment) add 1 to the variable `a`. The critical difference is **when** the updated value is returned:
+- **Pre-increment (`++a`)**: Increments the variable **first**, then returns the **new** value.
+- **Post-increment (`a++`)**: Returns the **original** value **first**, then increments the variable afterwards.
+
+```mermaid
+flowchart TD
+    subgraph Pre["Pre-Increment: let b = ++a (a = 10)"]
+        direction TB
+        A1["1. a is incremented: 10 -> 11"] --> A2["2. New value 11 assigned to b"]
+        A3["Result: a = 11, b = 11"]
+    end
+    subgraph Post["Post-Increment: let b = a++ (a = 10)"]
+        direction TB
+        B1["1. Current value 10 assigned to b"] --> B2["2. a is incremented: 10 -> 11"]
+        B3["Result: a = 11, b = 10"]
+    end
+```
+
+| Operator | Syntax | Name | Action Order | Value Returned | Variable After |
+|:---------|:-------|:-----|:-------------|:---------------|:---------------|
+| `++` | `++a` | Pre-increment | 1. Increment<br/>2. Return | **Updated** value (`11`) | `11` |
+| `++` | `a++` | Post-increment | 1. Return<br/>2. Increment | **Original** value (`10`) | `11` |
+
+```js
+// 05_chapter_JS_Incre_Decr_Op/38_ID_Op.js
+// Pre Increment
+let a = 10;
+let b = ++a;
+console.log(b); // 11
+console.log(a); // 11
+```
+
+```js
+// 05_chapter_JS_Incre_Decr_Op/39_ID.js
+// Post Increment
+let a = 10;
+let b = a++;
+console.log(b); // 10
+console.log(a); // 11
+```
+
+---
+
+### 40 - 42: Increment Evaluation Order & Interview Drills
+
+**Concept:** In complex expressions, JavaScript evaluates operands strictly from left to right. Understanding how pre- and post-increment operators alter variables mid-expression is a classic technical interview topic.
+
+#### Drill 1: `++a + a` (`40_IQ.js`)
+Given `let a = 10`:
+1. `++a`: `a` increments from `10` to `11`. The sub-expression evaluates to `11`.
+2. `+`: Binary addition operator waits for the right operand.
+3. `a`: Evaluates the current value of `a`, which is now `11`.
+4. Result: `11 + 11 = 22`. Final `a` is `11`.
+
+```js
+// 05_chapter_JS_Incre_Decr_Op/40_IQ.js
+let a = 10;
+console.log(++a + a); // 22
+console.log(a);       // 11
+```
+
+#### Drill 2: `++a + a + a++` (`41_IQ.js`)
+Given `let a = 10`:
+1. `++a`: `a` increments to `11`, yields `11`.
+2. Next operand `a`: current value is `11`. Sum so far: `11 + 11 = 22`.
+3. Next operand `a++`: yields current value `11`, then increments `a` to `12`.
+4. Expression sum: `22 + 11 = 33`.
+5. Final `a` is `12`.
+
+```js
+// 05_chapter_JS_Incre_Decr_Op/41_IQ.js
+let a = 10;
+console.log(++a + a + a++); // 33
+console.log(a);             // 12
+```
+
+#### Drill 3: `i++ + ++i` (`42_IQ.js`)
+Given `let i = 1`:
+1. `i++`: yields `1`, then `i` increments to `2`.
+2. `++i`: `i` increments from `2` to `3`, yields `3`.
+3. Result: `1 + 3 = 4`.
+4. Final `i` is `3`.
+
+```js
+// 05_chapter_JS_Incre_Decr_Op/42_IQ.js
+let i = 1;
+let result = i++ + ++i;
+console.log(result, i); // 4 3
+```
+
+---
+
+### 43 & 44: Pre-Decrement vs Post-Decrement (--a vs a--)
+
+**Concept:** Decrement operators subtract 1 from a variable with the same order-of-operation semantics:
+- **Pre-decrement (`--a`)**: Decrements `a` first, returns the updated value (`9`).
+- **Post-decrement (`a--`)**: Returns the current value (`10`) first, then decrements `a` (`9`).
+
+```js
+// 05_chapter_JS_Incre_Decr_Op/43_De.js
+// Pre Decrement
+let a = 10;
+let b = --a;
+console.log(b); // 9
+console.log(a); // 9
+```
+
+```js
+// 05_chapter_JS_Incre_Decr_Op/44.js
+// Post Decrement
+let a = 10;
+let b = a--;
+console.log(b); // 10
+console.log(a); // 9
+```
+
+---
+
+### 45: Nullish Coalescing Operator (??)
+
+**Concept:** The nullish coalescing operator (`??`) is a logical operator that returns its right-hand operand when its left-hand operand is **`null` or `undefined`**; otherwise, it returns its left-hand operand.
+
+**Why:** In test automation and API data parsing, optional fields may return `null` or `undefined`. You need a reliable fallback without accidentally overriding valid falsy values.
+
+**Crucial Difference: `??` vs `||`:**
+- Logical OR (`||`) triggers for **any falsy value**: `false`, `0`, `""`, `NaN`, `null`, `undefined`.
+- Nullish Coalescing (`??`) **only triggers for nullish values**: `null` and `undefined`.
+
+| Left Operand `a` | `a \|\| "default"` | `a ?? "default"` | Difference / Impact |
+|:-----------------|:-------------------|:-----------------|:--------------------|
+| `null` | `"default"` | `"default"` | Same behavior |
+| `undefined` | `"default"` | `"default"` | Same behavior |
+| `""` (empty string) | `"default"` ⚠️ | `""` ✅ | `??` preserves valid empty text |
+| `0` (zero) | `"default"` ⚠️ | `0` ✅ | `??` preserves valid count/page 0 |
+| `false` | `"default"` ⚠️ | `false` ✅ | `??` preserves valid boolean flags |
+
+```js
+// 05_chapter_JS_Incre_Decr_Op/45_Nullish.js
+let amul = null;
+let val = amul ?? "NANDANI Milk";
+console.log(val); // "NANDANI Milk" (null falls back)
+
+let api_response = null;
+let responsedata = api_response ?? "{}";
+console.log(responsedata); // "{}" (fallback applied)
+
+let api_response1 = "Pramod";
+let responsedata1 = api_response1 ?? "{}";
+console.log(responsedata1); // "Pramod" (valid value preserved)
 ```
 
 ---

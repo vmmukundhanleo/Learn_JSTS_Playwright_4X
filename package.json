@@ -1,0 +1,23 @@
+{
+  "name": "learn_jsts_playwright_4x-main",
+  "version": "1.0.0",
+  "description": "![JavaScript](https://img.shields.io/badge/JavaScript-ES6%2B-yellow) ![Node.js](https://img.shields.io/badge/Node.js-18%2B-green) ![Prompt Engineering](https://img.shields.io/badge/Prompt_Eng-RICE--POT-purple)",
+  "homepage": "https://github.com/vmmukundhanleo/Learn_JSTS_Playwright_4X#readme",
+  "bugs": {
+    "url": "https://github.com/vmmukundhanleo/Learn_JSTS_Playwright_4X/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vmmukundhanleo/Learn_JSTS_Playwright_4X.git"
+  },
+  "license": "ISC",
+  "author": "Mukundhan",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  }
+}

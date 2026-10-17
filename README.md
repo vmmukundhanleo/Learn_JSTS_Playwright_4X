@@ -52,6 +52,10 @@ A chapter-by-chapter learning repo for testers moving into JavaScript, TypeScrip
   - [40 - 42: Increment Evaluation Order & Interview Drills](#40---42-increment-evaluation-order--interview-drills)
   - [43 & 44: Pre-Decrement vs Post-Decrement (--a vs a--)](#43--44-pre-decrement-vs-post-decrement-a-vs-a)
   - [45: Nullish Coalescing Operator (??)](#45-nullish-coalescing-operator-)
+- [Chapter 06: If/Else Conditional Statements](#chapter-06-ifelse-conditional-statements)
+- [Chapter 07: Switch Statements](#chapter-07-switch-statements)
+- [Chapter 08: User Input in JavaScript and Node.js](#chapter-08-user-input-in-javascript-and-nodejs)
+  - [59 - 62: Browser and Node.js Input](#59---62-browser-and-nodejs-input)
 - [Coming Up](#coming-up)
 
 ---
@@ -65,7 +69,10 @@ flowchart LR
     C2 --> C3["03 Literals & Data Types<br/>primitives, null vs undefined, BigInt"]:::done
     C3 --> C4["04 Operators & Comparisons<br/>arithmetic, logical, == vs ==="]:::done
     C4 --> C5["05 Incr/Decr & Nullish<br/>pre/post ++/--, ?? operator"]:::done
-    C5 --> TS["TypeScript"]:::planned
+    C5 --> C6["06 If/Else<br/>conditional branching"]:::done
+    C6 --> C7["07 Switch<br/>case selection"]:::done
+    C7 --> C8["08 User Input<br/>browser and Node.js"]:::done
+    C8 --> TS["TypeScript"]:::planned
     TS --> PW["Playwright"]:::planned
 
     classDef done fill:#d1fae5,stroke:#059669,color:#064e3b
@@ -85,6 +92,9 @@ flowchart LR
 | 03 | Literals & Data Types | [03_Chapter_JS_Literals](03_Chapter_JS_Literals/) | ✅ Done | Primitive literals, `typeof`, `null` vs `undefined`, number systems (hex, octal, binary), BigInt, `Infinity`, `NaN` |
 | 04 | Operators & Comparisons | [04_JS_Operators](04_JS_Operators/) | ✅ Done | Assignment, arithmetic, remainder `%`, relational, loose `==` vs strict `===`, logical gates, ternary operators in QA, and coercion traps |
 | 05 | Increment, Decrement & Nullish | [05_chapter_JS_Incre_Decr_Op](05_chapter_JS_Incre_Decr_Op/) | ✅ Done | Pre/Post increment (`++a`, `a++`), Pre/Post decrement (`--a`, `a--`), evaluation order drills, and Nullish Coalescing (`??`) |
+| 06 | If/Else Conditional Statements | [06_Chapter_If_else_statement_condition](06_Chapter_If_else_statement_condition/) | ✅ Done | `if`/`else`, nested conditions, and multiple conditional branches |
+| 07 | Switch Statements | [07_Chapter_Switch](07_Chapter_Switch/) | ✅ Done | `switch`/`case`, grouped cases, and practical selection examples |
+| 08 | User Input | [08_chapter_UserInput](08_chapter_UserInput/) | ✅ Done | Browser `prompt()`, Node.js `readline` and `prompt-sync`, and reading standard input |
 
 ---
 
@@ -153,22 +163,41 @@ Learn_JSTS_Playwright_4X/
 │   ├── 43_De.js                            # Pre-decrement (--a): decrement first, then return
 │   ├── 44.js                               # Post-decrement (a--): return first, then decrement
 │   └── 45_Nullish.js                       # Nullish coalescing (??) vs default fallback values
+├── 06_Chapter_If_else_statement_condition/
+│   ├── 46_IF.js                            # Basic if/else branching
+│   ├── 47_If_else_nested.js                # Nested if/else conditions
+│   ├── 48_TO_IfElse.js                     # If/else practice
+│   └── 49_Multiple_ifelse.js               # Multiple conditional branches
+├── 07_Chapter_Switch/
+│   ├── 50_switch.js                        # switch/case basics
+│   ├── 51_IQ.js - 53_API_Switch.js         # Switch exercises and an API example
+│   ├── 54_Switch_Group.js                 # Grouped switch cases
+│   └── 55_IQ.js - 58_IQ.js                # Switch practice questions
+└── 08_chapter_UserInput/
+    ├── 59_UI.js                            # Browser prompt() input
+    ├── 60_Node_UI.js                       # Node.js readline input
+    ├── 61_Prompt_Sync.js                   # Synchronous input with prompt-sync
+    └── 62_FS_ReadFile.js                   # Read standard input from file descriptor 0
 ```
 
 ---
 
 ## Getting Started
 
-You only need [Node.js](https://nodejs.org/) 18 or newer. No `npm install` yet.
+You need [Node.js](https://nodejs.org/) 18 or newer. Install the project dependency used by `61_Prompt_Sync.js`:
 
 ```bash
 git clone https://github.com/vmmukundhanleo/Learn_JSTS_Playwright_4X.git
 cd Learn_JSTS_Playwright_4X
-node --version                              # v18+ (tested on v22)
-node 01_Chapter_JS_Basics/01_Hellowworld.js  # Hello, World!
+npm install
+node --version                                # v18+ (tested on v22)
+node 01_Chapter_JS_Basics/01_Hellowworld.js   # Hello, World!
+node 06_Chapter_If_else_statement_condition/46_IF.js
+node 07_Chapter_Switch/50_switch.js
+node 08_chapter_UserInput/60_Node_UI.js       # Interactive Node.js input
 ```
 
-Every lesson file runs the same way: `node <chapter folder>/<file>.js`.
+Run Node.js lessons with `node <chapter folder>/<file>.js`. The `59_UI.js` lesson uses the browser's `prompt()` and should be run in a browser environment. The `61_Prompt_Sync.js` lesson requires the installed `prompt-sync` package. The `62_FS_ReadFile.js` lesson reads all of standard input; on Windows, finish input with Ctrl+Z followed by Enter.
 
 ---
 
@@ -1231,11 +1260,49 @@ console.log(responsedata1); // "Pramod" (valid value preserved)
 
 ---
 
+## Chapter 06: If/Else Conditional Statements
+
+Use `if`, `else if`, and `else` to run code based on conditions. The lessons progress from basic branching to nested conditions and multiple alternatives.
+
+```bash
+node 06_Chapter_If_else_statement_condition/46_IF.js
+```
+
+## Chapter 07: Switch Statements
+
+Use `switch` and `case` to select an action from multiple matching values. The chapter also includes grouped cases, practice questions, and an API-related example.
+
+```bash
+node 07_Chapter_Switch/50_switch.js
+```
+
+## Chapter 08: User Input in JavaScript and Node.js
+
+### 59 - 62: Browser and Node.js Input
+
+The input examples use different APIs depending on where the code runs:
+
+- `59_UI.js` uses the browser's `prompt()` function.
+- `60_Node_UI.js` uses Node.js `readline` to ask for input interactively.
+- `61_Prompt_Sync.js` uses the `prompt-sync` dependency, which is installed with `npm install`.
+- `62_FS_ReadFile.js` reads standard input from file descriptor `0`; despite the filename, it does not open a file.
+
+Run the Node.js examples with:
+
+```bash
+node 08_chapter_UserInput/60_Node_UI.js
+node 08_chapter_UserInput/61_Prompt_Sync.js
+node 08_chapter_UserInput/62_FS_ReadFile.js
+```
+
+For `62_FS_ReadFile.js`, type input in the terminal and signal end-of-input with Ctrl+Z, then Enter on Windows (or Ctrl+D on Unix-like systems).
+
+---
+
 ## Coming Up
 
-- **Control Flow**: `if`/`else`, `switch`, `for`, `while`, and `for...of` loops
+- **Loops & Iteration**: `for`, `while`, and `for...of` loops
 - **Functions & Scope**: Arrow functions, closures, callbacks, and `this`
 - **Objects & Arrays**: Destructuring, spread/rest operators, map/filter/reduce
 - **TypeScript**: Static typing, interfaces, generics, and strict configurations
 - **Playwright Automation**: Locators, actions, auto-waiting, Page Object Model (POM), and CI/CD pipelines
-
